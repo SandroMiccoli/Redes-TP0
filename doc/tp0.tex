@@ -1,0 +1,121 @@
+%	Documentação do Trabalho Prático 1 de AEDSIII
+%	@Sandro Miccoli
+%
+%	* Você pode identificar erros de grafia através do seguinte comando linux:
+%		aspell --encoding="iso8859-1" -c -t=tex --lang="pt_BR" tp0.tex
+%
+
+\documentclass[12pt]{article}
+\usepackage{sbc-template}
+\usepackage{graphicx}
+\usepackage{latexsym}
+\usepackage{subfigure}
+\usepackage{times,amsmath,epsfig}
+\usepackage{graphicx,url}
+ \makeatletter
+ \newif\if@restonecol
+ \makeatother
+ \let\algorithm\relax
+ \let\endalgorithm\relax 
+\graphicspath{{./data/}}
+\usepackage[lined,algonl,ruled]{algorithm2e}
+\usepackage{multirow}
+\usepackage[brazil]{babel}   
+\usepackage[latin1]{inputenc}
+\usepackage{pythonhighlighting}
+
+\usepackage{alltt}
+\renewcommand{\ttdefault}{txtt}
+
+\sloppy
+
+\title{TRABALHO PRÁTICO 0: \\ Cálculo de CRC de um arquivo}
+
+\author{Sandro Miccoli - 2009052409 - smiccoli@dcc.ufmg.br\\Leandro Duarte - - }
+
+\address{Departamento de Ciência da Computação -- Universidade Federal de Minas Gerais (UFMG)\\
+\\
+\today 
+}
+
+
+\begin{document} 
+
+\maketitle
+
+\begin{resumo}
+Esse relatório descreve como foi implementado o algoritmo de detecção de erros conhecido como Cyclic Redundancy Check (CRC). Neste trabalho específico iremos utilizar polinômios geradores de 8 e 16 bits.
+
+\end{resumo}
+
+\section{INTRODUÇÃO}
+
+	O CRC é uma técnica utilizada para detecção de erros de transmissão de dados digitais. As mensagens a serem transmitidas são tratadas como códigos polinomiais, sendo representada por uma série de binários.
+
+	A cada bloco de dado transmitido é anexada um valor de checagem (\textit{check value}), que é baseado no resto de uma divisão polinomial entre o conteúdo dos dados e um polinômio gerador. Quandos esses dados são recebidos, é feito o mesmo cálculo e, caso os valores de checagem não coincidam, pode-se inferir que ocorreu um erro na propagação desses dados \cite{wiki}.
+
+\section{MODELAGEM}
+\label{modelagem}
+
+"Uma descrição sucinta dos algoritmos e dos TAD, das principais funções e procedimentos e decisões de implementação."
+
+\section{SOLUÇÃO PROPOSTA}
+\label{solucao_proposta}
+
+
+\section{IMPLEMENTAÇÃO}
+\label{implementacao}
+
+\subsection{Código}
+
+\subsubsection{Arquivos .c}
+
+\begin{itemize}
+\item \textbf{crc.c} Blablablabla
+\end{itemize}
+
+\subsubsection{Arquivos .h}
+
+\begin{itemize}
+\item \textbf{crc.h} Bla bla bla
+\end{itemize}
+
+\subsection{Compilação}
+
+O programa deve ser compilado através do compilador GCC através de um makefile ou do seguinte comando:
+
+\begin{footnotesize}
+\begin{verbatim} gcc -Wall -Lsrc src/crc.c -o crc \end{verbatim}
+\end{footnotesize}
+
+\subsection{Execução}
+
+A execução do programa tem como parâmetros:
+\begin{itemize}
+\item Um arquivo de entrada (texto ou binário)
+\item Um índice do polinômio gerador, que pode ser 0 ou 1, para polinômios de 8 e 16 bits, respectivamente.
+\end{itemize}
+
+O comando para a execução do programa é da forma:
+
+\begin{footnotesize}
+\begin{verbatim} ./crc <arquivo binario de entrada> <índice do polinômio - 0 ou 1>\end{verbatim}
+\end{footnotesize}
+
+
+\section{AVALIAÇÃO EXPERIMENTAL}
+\label{avaliacao_experimental}
+	
+
+\subsection{Resultado}
+
+	
+\section{CONCLUSÃO}
+\label{conclusao}
+
+
+
+\bibliographystyle{sbc}
+\bibliography{tp0}
+
+\end{document}
