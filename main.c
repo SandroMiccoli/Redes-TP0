@@ -2,6 +2,7 @@
 TRABALHO PRATICO 0 - Redes de Computadores
 @LEANDRO DUARTE DE ASSIS
 @SANDRO MICCOLI ALVES
+main.c
 =========================================================================================================*/
 
 #include <stdlib.h>
