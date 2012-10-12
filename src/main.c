@@ -24,7 +24,7 @@ char* ReadFile(char *name)
 	file = fopen(name, "rb");
 	if (!file)
 	{
-		fprintf(stderr, "Unable to open file %s", name);
+		fprintf(stderr, "Não foi possível abrir o arquivo: %s", name);
 		return;
 	}
 
@@ -37,7 +37,7 @@ char* ReadFile(char *name)
 	buffer=(char *)malloc(fileLen+1);
 	if (!buffer)
 	{
-		fprintf(stderr, "Memory error!");
+		fprintf(stderr, "Não há memória suficiente!");
                                 fclose(file);
 		return;
 	}
