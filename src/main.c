@@ -9,7 +9,7 @@ main.c
 #include <string.h>
 #include <stdio.h>
 #include <math.h>
-//#include "crc.h"
+#include "crc.h"
 
 #define FirstDigit 48
 
