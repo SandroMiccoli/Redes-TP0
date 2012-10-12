@@ -53,10 +53,10 @@ char* ReadFile(char *name)
 
 void BinToHex(char* BinData, char* HexData)
 {
-   long int Number = 0;
+   int Number = 0, i;
    int BinLength = strlen(BinData);
 
-   for(int i=0; i<BinLength; i++)
+   for(i=0; i<BinLength; i++)
    {
       Number += ((BinData[BinLength - i - 1] - FirstDigit) * pow(2, i));
    }
@@ -68,6 +68,7 @@ int main(int argc, char *argv[])
 {
 	char *polinomio;
 	char *entrada;
+	int i;
 
 	if(argc != 3)
 	{
@@ -100,7 +101,7 @@ int main(int argc, char *argv[])
 	//Chama a função LeEntrada, que fará a leitura bit a bit do arquivo
 	//LeEntrada(entrada);
 
-	for (int i=0; i<fileLen; i++)
+	for (i=0; i<fileLen; i++)
         printf("%c",entrada[i]);
 
 	//Fecha o arquivo de entrada
