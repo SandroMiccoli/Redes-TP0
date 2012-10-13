@@ -16,6 +16,7 @@ int main(int argc, char *argv[])
 {
 	char *polinomio;
 	char *entrada;
+	int tamPol;
 
     	char *bin = NULL;
 
@@ -27,10 +28,12 @@ int main(int argc, char *argv[])
 
 	if(atoi(argv[2]) == 0)//polinomio de 8 bits
 	{
+		tamPol = 8;		
 		polinomio = "100000111";	
 	}
 	else if(atoi(argv[2]) == 1)//polinomio de 16 bits
 	{
+		tamPol = 16;		
 		polinomio = "11000000000000101";
 	}
 	else
@@ -45,7 +48,7 @@ int main(int argc, char *argv[])
 	//Abertura do arquivo
 	entrada = ReadFile(arquivoEntrada);
 
-	bin=(char *)malloc(fileLen*4 + 1);
+	bin=(char *)malloc((fileLen+tamPol-1)*4 + 1);
 
 	*bin = NULL;
 
