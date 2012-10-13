@@ -14,7 +14,8 @@ hex_bin.c
 
 
 char* ReadFile(char *name)
-{	
+{
+	printf("\nentrou na read file\n");	
 	FILE *file;
 	char *buffer;
 
@@ -75,6 +76,7 @@ const char * hex_to_bin_quad(unsigned char c){
 }
 
 void arquivo_to_bin(char * bin, char * arquivo){
+	printf("\nentrou na arquivo to bin\n");
     char hex[2];
     for (int i=0; i<fileLen; i++){
         sprintf(hex,"%02x", (unsigned int) arquivo[i] & 0xff);

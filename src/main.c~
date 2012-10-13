@@ -57,7 +57,7 @@ int main(int argc, char *argv[])
 	CalculaCRC(bin, polinomio);
 	//Fecha o arquivo de entrada
 	free(entrada);
-    	free(bin);
+    //free(bin);
 	printf("\nPROGRAMA ENCERRADO COM SUCESSO!\n");
 
 

@@ -36,12 +36,14 @@ void CalculaCRC(char* bin, char* polinomio)
 	int tamBin = strlen(bin);
 	int tamPol = strlen(polinomio);
 
-	bin = realloc (bin, (tamBin + tamPol-1)*(sizeof(char)));
+	//bin = realloc (bin, (tamBin + tamPol-1));
 
+	//adiciona 0's ao final do bin
 	for(i=tamBin; i<tamPol-1;i++)
 	{
 		bin[i]='0';
 	}
+	printf("\nbin pos 0's: %s\n", bin);
 
 	char dividendo[tamPol];
 
