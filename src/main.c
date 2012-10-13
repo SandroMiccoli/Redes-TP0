@@ -10,65 +10,14 @@ main.c
 #include <stdio.h>
 #include <math.h>
 #include "crc.h"
-
-#define FirstDigit 48
-
-unsigned long fileLen;
-
-char* ReadFile(char *name)
-{
-	FILE *file;
-	char *buffer;
-
-	//Open file
-	file = fopen(name, "rb");
-	if (!file)
-	{
-		fprintf(stderr, "Não foi possível abrir o arquivo: %s", name);
-		return;
-	}
-
-	//Get file length
-	fseek(file, 0, SEEK_END);
-	fileLen=ftell(file);
-	fseek(file, 0, SEEK_SET);
-
-	//Allocate memory
-	buffer=(char *)malloc(fileLen+1);
-	if (!buffer)
-	{
-		fprintf(stderr, "Não há memória suficiente!");
-                                fclose(file);
-		return;
-	}
-
-	//Read file contents into buffer
-	fread(buffer, fileLen, 1, file);
-	fclose(file);
-
-	return buffer;
-
-}
-
-
-void BinToHex(char* BinData, char* HexData)
-{
-   int Number = 0, i;
-   int BinLength = strlen(BinData);
-
-   for(i=0; i<BinLength; i++)
-   {
-      Number += ((BinData[BinLength - i - 1] - FirstDigit) * pow(2, i));
-   }
-
-   snprintf(HexData, BinLength,"%d", Number);
-}
+#include "hex_bin.h"
 
 int main(int argc, char *argv[])
 {
 	char *polinomio;
 	char *entrada;
-	int i;
+
+    char *bin = NULL;
 
 	if(argc != 3)
 	{
@@ -97,16 +46,21 @@ int main(int argc, char *argv[])
 	//Abertura do arquivo
 	entrada = ReadFile(arquivoEntrada);
 
-
 	//Chama a função LeEntrada, que fará a leitura bit a bit do arquivo
 	//LeEntrada(entrada);
 
-	for (i=0; i<fileLen; i++)
-        printf("%c",entrada[i]);
+   	bin=(char *)malloc(fileLen*4 + 1);
 
+   	*bin=NULL;
+
+    arquivo_to_bin(bin,entrada);
+
+    printf("%s\n",bin);
 	//Fecha o arquivo de entrada
 	free(entrada);
+    //free(bin);
 	printf("\nPROGRAMA ENCERRADO COM SUCESSO!\n");
+
 
 	return 0;
 }

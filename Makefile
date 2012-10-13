@@ -4,7 +4,7 @@ CFLAGS = -Wall -Wextra -Lsrc -lm
 
 RM = rm -f
 
-OBJS = src/main.c src/crc.c
+OBJS = src/main.c src/hex_bin.c src/crc.c
 
 VALGRIND = valgrind -v --read-var-info=yes --tool=memcheck --leak-check=yes --show-reachable=yes --track-origins=yes
 #VALGRIND = valgrind  --read-var-info=yes --tool=memcheck --leak-check=yes -v
