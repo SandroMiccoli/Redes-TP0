@@ -16,7 +16,7 @@ crc.c
 //calcula a operação OU exclusivo entre os caracteres A e B recebidos por parametro
 char xor(char a,char b)
 {
-	printf("\n%c xor %c", a, b);	
+	//printf("\n%c xor %c", a, b);	
 	if ((a == '1' && b == '0') || (a == '0' && b == '1'))// A xor B = 1
 	{
 		return '1';
@@ -38,13 +38,16 @@ void CalculaCRC(char* bin, char* polinomio)
 	int i, j, pointer = 0; //i e j = contadores; pointer aponta para uma posicao do vetor de bits
 
 	char *hex; //irá armazenar o CRC em hexadecimal
-
-	hex = (char*) malloc ((strlen(bin)/4)*sizeof(char)+1);
-	*hex = NULL;
 	
 	//armazenam o tamanho dos vetores de binarios e do polinomio
 	int tamBin = strlen(bin);
 	int tamPol = strlen(polinomio);
+	
+	printf("\ntamBin: %d\n", tamBin);
+	printf("\ntamPol: %d\n", tamPol);
+	
+	hex = (char*) malloc (((tamPol/4)+2)*sizeof(char));
+	*hex = NULL;
 
 	//adiciona tamPol-1 zeros ao final do vetor de binários
 	for(i=tamBin; i<tamBin+tamPol-1;i++)
@@ -52,18 +55,19 @@ void CalculaCRC(char* bin, char* polinomio)
 		bin[i]='0';
 	}
 	
+	tamBin = strlen(bin);
+	
 	printf("\nBin depois dos zeros: %s\n", bin);
 
 	//armazena os dividendos das divisões consecutivas até encontrar o resto
-	char dividendo[tamPol];
+	char dividendo[tamPol+1];
 
 	//inicializa o dividendo com os primeiros tamPol bits do vetor binário
 	for(i=0;i<tamPol;i++)
 	{
 		dividendo[i]=bin[i];
 	}
-
-	printf("\ndividendo1: %s\n", dividendo);
+	dividendo[tamPol]='\0';
 
 	//realiza as divisões sucessivas até encontrar o resto que é o CRC
 	for(i=0;i<tamBin-tamPol+1;i++)
@@ -77,7 +81,7 @@ void CalculaCRC(char* bin, char* polinomio)
 				dividendo[j]=xor(dividendo[j+1], polinomio[j+1]);
 			}
 			//adiciona o próximo bit ao dividendo, exceto na ultima interação
-			if(i<tamBin-1)			
+			if(tamBin!=tamPol+pointer+1)			
 				dividendo[tamPol-1]=bin[tamPol+pointer];
 		}
 		else //dividendo não é divisível pelo polinômio
@@ -88,11 +92,11 @@ void CalculaCRC(char* bin, char* polinomio)
 				dividendo[j]=xor(dividendo[j+1], '0');
 			}
 			//adiciona o próximo bit ao dividendo, exceto na ultima interação
-			if(i<tamBin-1)	
+			if(tamBin!=tamPol+pointer+1)
 				dividendo[tamPol-1]=bin[tamPol+pointer];
 		}
 		pointer++;
-		printf("\ndividendo: %s\n", dividendo);
+		//printf("\ndividendo: %s\n", dividendo);
 	}
 
 	printf("\nCRC binario: %s\n", dividendo);
