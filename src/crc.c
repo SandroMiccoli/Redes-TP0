@@ -10,6 +10,7 @@ crc.c
 #include <string.h>
 
 #include "crc.h"
+#include "hex_bin.h"
 
 char xor(char a,char b)
 {
@@ -32,6 +33,12 @@ char xor(char a,char b)
 void CalculaCRC(char* bin, char* polinomio)
 {
 	int i, j, pointer = 0;
+
+	char *hex;
+
+	hex = (char*) malloc ((strlen(bin)/4)*sizeof(char)+1);
+	*hex = NULL;
+	strcat(hex, "0x");
 	
 	int tamBin = strlen(bin);
 	int tamPol = strlen(polinomio);
@@ -77,4 +84,8 @@ void CalculaCRC(char* bin, char* polinomio)
 		//printf("\ndividendo: %s\n", dividendo);
 	}	
 	printf("\nCRC: %s\n", dividendo);
+
+	BinParaHex(dividendo, hex);
+
+	printf("\nCRC em hex: %s\n", hex);
 }

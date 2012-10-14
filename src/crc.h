@@ -6,10 +6,4 @@ char xor(char a,char b);
 
 void CalculaCRC(char* bin, char* polinomio);
 
-
-
-
-
-
-
 #endif

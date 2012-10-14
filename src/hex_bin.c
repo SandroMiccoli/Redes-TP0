@@ -48,6 +48,31 @@ char* ReadFile(char *name)
 
 }
 
+void BinParaHex(char* bin, char *hex)
+{
+
+	while (*bin != '\0')
+	{
+		if (strncmp(bin, "0000", 4) == 0) strcat(hex,"0"); 
+		else if (strncmp(bin, "0001", 4) == 0) strcat(hex,"1");
+		else if (strncmp(bin, "0010", 4) == 0) strcat(hex,"2");
+		else if (strncmp(bin, "0011", 4) == 0) strcat(hex,"3");
+		else if (strncmp(bin, "0100", 4) == 0) strcat(hex,"4");
+		else if (strncmp(bin, "0101", 4) == 0) strcat(hex,"5");
+		else if (strncmp(bin, "0110", 4) == 0) strcat(hex,"6");
+		else if (strncmp(bin, "0111", 4) == 0) strcat(hex,"7");		
+		else if (strncmp(bin, "1000", 4) == 0) strcat(hex,"8");
+		else if (strncmp(bin, "1001", 4) == 0) strcat(hex,"9");
+		else if (strncmp(bin, "1010", 4) == 0) strcat(hex,"A");
+		else if (strncmp(bin, "1011", 4) == 0) strcat(hex,"B");
+		else if (strncmp(bin, "1100", 4) == 0) strcat(hex,"C");
+		else if (strncmp(bin, "1101", 4) == 0) strcat(hex,"D");
+		else if (strncmp(bin, "1110", 4) == 0) strcat(hex,"E");
+		else if (strncmp(bin, "1111", 4) == 0) strcat(hex,"F");
+
+		bin += 4; /* avança 4 posições na string de zeros e uns */
+	}
+}
 
 void BinToHex(char* BinData, char* HexData)
 {
