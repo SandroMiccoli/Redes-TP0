@@ -16,11 +16,11 @@
  \newif\if@restonecol
  \makeatother
  \let\algorithm\relax
- \let\endalgorithm\relax 
+ \let\endalgorithm\relax
 \graphicspath{{./data/}}
 \usepackage[lined,algonl,ruled]{algorithm2e}
 \usepackage{multirow}
-\usepackage[brazil]{babel}   
+\usepackage[brazil]{babel}
 \usepackage[latin1]{inputenc}
 \usepackage{pythonhighlighting}
 
@@ -29,17 +29,17 @@
 
 \sloppy
 
-\title{TRABALHO PRÁTICO 0: \\ Cálculo de CRC de um arquivo}
+\title{REDES DE COMPUTADORES\\TRABALHO PRÁTICO 0: \\ Cálculo de CRC de um arquivo}
 
 \author{Sandro Miccoli - 2009052409 - smiccoli@dcc.ufmg.br\\Leandro Duarte - 2009052271 - leandro.assis@dcc.ufmg.br}
 
 \address{Departamento de Ciência da Computação -- Universidade Federal de Minas Gerais (UFMG)\\
 \\
-\today 
+\today
 }
 
 
-\begin{document} 
+\begin{document}
 
 \maketitle
 
@@ -52,12 +52,73 @@ Esse relatório descreve como foi implementado o algoritmo de detecção de erros c
 
 	O CRC é uma técnica utilizada para detecção de erros de transmissão de dados digitais. As mensagens a serem transmitidas são tratadas como códigos polinomiais, sendo representada por uma série de binários.
 
-	A cada bloco de dado transmitido é anexada um valor de checagem (\textit{check value}), que é baseado no resto de uma divisão polinomial entre o conteúdo dos dados e um polinômio gerador. Quandos esses dados são recebidos, é feito o mesmo cálculo e, caso os valores de checagem não coincidam, pode-se inferir que ocorreu um erro na propagação desses dados \cite{wiki}.
+	A cada bloco de dado transmitido é anexada um valor de checagem (\textit{check value}), que é baseado no resto de uma divisão polinomial entre o conteúdo dos dados e um polinômio gerador.
+	Quandos esses dados são recebidos, é feito o mesmo cálculo e, caso os valores de checagem não coincidam, pode-se inferir que ocorreu um erro na propagação desses dados \cite{wiki}.
 
 \section{MODELAGEM}
 \label{modelagem}
 
-"Uma descrição sucinta dos algoritmos e dos TAD, das principais funções e procedimentos e decisões de implementação."
+O programa foi dividido em dois módulos, o primeiro (hex\_bin) responsável pela manipulação dos dados e conversão para binário e hexadecimal. O segundo (crc) para realizar o XOR entre dois bits e efeticamente calcular o CRC.
+
+A seguir descreveremos os algoritmos e as principais funções e procedimentos implementados para o trabalho:
+
+\subsection{Funções implementadas}
+
+\vspace{0.2 true cm}
+
+\begin{itemize}
+ \item \begin{large}\textit{char xor (char a, char b)}\end{large}\\
+ \subitem \textbf{Descrição:} Calcula a operação OU exclusivo entre os caracteres A e B recebidos por parametro.
+ \subitem \textbf{Parâmetros:} Dois caracteres (a e b).
+ \subitem \textbf{Complexidade:} $O(1)$, pois são realizadas apenas atribuições.
+\end{itemize}
+
+\vspace{0.2 true cm}
+
+\begin{itemize}
+ \item \begin{large}\textit{void CalculaCRC(char* bin, char* polinomio)}\end{large}\\
+ \subitem \textbf{Descrição:} Calcula o CRC a partir de uma sequência de binários e do polinômio gerador.
+ \subitem \textbf{Parâmetros:} Duas sequências de binários.
+ \subitem \textbf{Complexidade:} $O(n)$, pois ???????????????????????.
+\end{itemize}
+
+\vspace{0.2 true cm}
+
+\begin{itemize}
+ \item \begin{large}\textit{char* ReadFile(char *name)}\end{large}\\
+ \subitem \textbf{Descrição:} Lê todos os dados do arquivo e retorna seu conteúdo em um buffer.
+ \subitem \textbf{Parâmetros:} Nome do arquivo.
+ \subitem \textbf{Complexidade:} $O(n)$, sendo $n$ o tamanho do arquivo.
+\end{itemize}
+
+\vspace{0.2 true cm}
+
+\begin{itemize}
+ \item \begin{large}\textit{void BinToHex(char* bin, char *hex)}\end{large}\\
+ \subitem \textbf{Descrição:} Converte binário para hexadecimal
+ \subitem \textbf{Parâmetros:} Sequência de bits e outro vetor para armazenar o resultado em hexadecimal.
+ \subitem \textbf{Complexidade:} $O(n)$, sendo $n$ o tamanho da sequência de binários.
+\end{itemize}
+
+\vspace{0.2 true cm}
+
+\begin{itemize}
+ \item \begin{large}\textit{char * HexToBin(unsigned char c)}\end{large}\\
+ \subitem \textbf{Descrição:} Converte hexadecimal para binário
+ \subitem \textbf{Parâmetros:} Caractere em hexadecimal.
+ \subitem \textbf{Complexidade:} $O(1)$, pois é realizada apenas atribuições.
+\end{itemize}
+
+\vspace{0.2 true cm}
+
+\begin{itemize}
+ \item \begin{large}\textit{void ArquivoToBin(char * bin, char * arquivo))}\end{large}\\
+ \subitem \textbf{Descrição:} Converte o conteúdo do arquivo para uma vetor de binários.
+ \subitem \textbf{Parâmetros:} Vetor de binário e vetor que contém o arquivo.
+ \subitem \textbf{Complexidade:} $O(n)$, sendo $n$ o tamanho do arquivo.
+\end{itemize}
+
+\vspace{0.2 true cm}
 
 \section{SOLUÇÃO PROPOSTA}
 \label{solucao_proposta}
@@ -71,21 +132,24 @@ Esse relatório descreve como foi implementado o algoritmo de detecção de erros c
 \subsubsection{Arquivos .c}
 
 \begin{itemize}
-\item \textbf{crc.c} Blablablabla
+\item \textbf{main.c} Arquivo principal que aloca memória para os binários do arquivo e calcula o CRC.
+\item \textbf{crc.c} Contém implementação da operação XOR e do CRC.
+\item \textbf{hex\_bin.c} Contém funções de manipulação de sequências binárias, hexadecimais e conversão do arquivo para binário.
 \end{itemize}
 
 \subsubsection{Arquivos .h}
 
 \begin{itemize}
-\item \textbf{crc.h} Bla bla bla
+\item \textbf{crc.h} Contém o cabeçalho da operação XOR e do CRC.
+\item \textbf{hex\_bin.h} Contém o cabeçalho das funções de sequências binárias, hexadecimais e conversão do arquivo para binário.
 \end{itemize}
 
 \subsection{Compilação}
 
-O programa deve ser compilado através do compilador GCC através de um makefile ou do seguinte comando:
+O programa deve ser compilado através do compilador GCC através de um makefile, através do seguinte comando:
 
 \begin{footnotesize}
-\begin{verbatim} gcc -Wall -Lsrc src/crc.c -o crc \end{verbatim}
+\begin{verbatim} make \end{verbatim}
 \end{footnotesize}
 
 \subsection{Execução}
@@ -105,11 +169,11 @@ O comando para a execução do programa é da forma:
 
 \section{AVALIAÇÃO EXPERIMENTAL}
 \label{avaliacao_experimental}
-	
+
 
 \subsection{Resultado}
 
-	
+
 \section{CONCLUSÃO}
 \label{conclusao}
 
