@@ -18,7 +18,7 @@ int main(int argc, char *argv[])
 	char *entrada;
 	int tamPol;
 
-    	char *bin = NULL;
+    	char *bin;
 
 	if(argc != 3)
 	{
@@ -48,7 +48,7 @@ int main(int argc, char *argv[])
 	//Abertura do arquivo
 	entrada = ReadFile(arquivoEntrada);
 
-	bin=(char *)malloc((fileLen+tamPol-1)*4 + 1);
+	bin=(char *)malloc((fileLen+tamPol-1)*sizeof(int) + 1);
 
 	*bin = NULL;
 
@@ -58,7 +58,7 @@ int main(int argc, char *argv[])
 	printf("\nPolinomio: %s\n", polinomio);
 
 	CalculaCRC(bin, polinomio);
-	//Fecha o arquivo de entrada
+	
 	free(entrada);
     	free(bin);
 	printf("\nPROGRAMA ENCERRADO COM SUCESSO!\n");

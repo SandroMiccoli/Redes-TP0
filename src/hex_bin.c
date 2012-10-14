@@ -50,7 +50,7 @@ char* ReadFile(char *name)
 
 void BinParaHex(char* bin, char *hex)
 {
-
+	strcat(hex, "0x");
 	while (*bin != '\0')
 	{
 		if (strncmp(bin, "0000", 4) == 0) strcat(hex,"0"); 
@@ -100,12 +100,14 @@ const char * hex_to_bin_quad(unsigned char c){
 }
 
 void arquivo_to_bin(char * bin, char * arquivo){
-    char hex[2];
-    for (int i=0; i<fileLen; i++){
-        sprintf(hex,"%02x", (unsigned int) arquivo[i] & 0xff);
-        for (int j=0; j<2; j++){
-            strncat(bin,hex_to_bin_quad(hex[j]),4);
-        }
+   	char hex[2];
+	for (int i=0; i<fileLen; i++)
+	{
+	        sprintf(hex,"%02x", (unsigned int) arquivo[i] & 0xff);
+	        for (int j=0; j<2; j++)
+		{
+		        strncat(bin,hex_to_bin_quad(hex[j]),4);
+	        }
 
 	}
 }

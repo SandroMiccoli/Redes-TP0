@@ -16,7 +16,7 @@ crc.c
 //calcula a operação OU exclusivo entre os caracteres A e B recebidos por parametro
 char xor(char a,char b)
 {
-	//printf("\n%c xor %c", a, b);	
+	printf("\n%c xor %c", a, b);	
 	if ((a == '1' && b == '0') || (a == '0' && b == '1'))// A xor B = 1
 	{
 		return '1';
@@ -41,17 +41,18 @@ void CalculaCRC(char* bin, char* polinomio)
 
 	hex = (char*) malloc ((strlen(bin)/4)*sizeof(char)+1);
 	*hex = NULL;
-	strcat(hex, "0x");
 	
 	//armazenam o tamanho dos vetores de binarios e do polinomio
 	int tamBin = strlen(bin);
 	int tamPol = strlen(polinomio);
 
 	//adiciona tamPol-1 zeros ao final do vetor de binários
-	for(i=tamBin; i<tamPol-1;i++)
+	for(i=tamBin; i<tamBin+tamPol-1;i++)
 	{
 		bin[i]='0';
 	}
+	
+	printf("\nBin depois dos zeros: %s\n", bin);
 
 	//armazena os dividendos das divisões consecutivas até encontrar o resto
 	char dividendo[tamPol];
@@ -61,6 +62,8 @@ void CalculaCRC(char* bin, char* polinomio)
 	{
 		dividendo[i]=bin[i];
 	}
+
+	printf("\ndividendo1: %s\n", dividendo);
 
 	//realiza as divisões sucessivas até encontrar o resto que é o CRC
 	for(i=0;i<tamBin-tamPol+1;i++)
@@ -89,7 +92,7 @@ void CalculaCRC(char* bin, char* polinomio)
 				dividendo[tamPol-1]=bin[tamPol+pointer];
 		}
 		pointer++;
-		//printf("\ndividendo: %s\n", dividendo);
+		printf("\ndividendo: %s\n", dividendo);
 	}
 
 	printf("\nCRC binario: %s\n", dividendo);
@@ -98,4 +101,6 @@ void CalculaCRC(char* bin, char* polinomio)
 	BinParaHex(dividendo, hex);
 
 	printf("\nCRC em hex: %s\n", hex);
+
+	free(hex);
 }
