@@ -14,7 +14,7 @@ hex_bin.c
 
 //realiza a leitura do arquivo e retorna sem conteudo em um buffer
 char* ReadFile(char *name)
-{	
+{
 	FILE *file;
 	char *buffer;
 
@@ -55,14 +55,14 @@ void BinToHex(char* bin, char *hex)
 	strcat(hex, "0x");
 	while (*bin != '\0')
 	{
-		if (strncmp(bin, "0000", 4) == 0) strcat(hex,"0"); 
+		if (strncmp(bin, "0000", 4) == 0) strcat(hex,"0");
 		else if (strncmp(bin, "0001", 4) == 0) strcat(hex,"1");
 		else if (strncmp(bin, "0010", 4) == 0) strcat(hex,"2");
 		else if (strncmp(bin, "0011", 4) == 0) strcat(hex,"3");
 		else if (strncmp(bin, "0100", 4) == 0) strcat(hex,"4");
 		else if (strncmp(bin, "0101", 4) == 0) strcat(hex,"5");
 		else if (strncmp(bin, "0110", 4) == 0) strcat(hex,"6");
-		else if (strncmp(bin, "0111", 4) == 0) strcat(hex,"7");		
+		else if (strncmp(bin, "0111", 4) == 0) strcat(hex,"7");
 		else if (strncmp(bin, "1000", 4) == 0) strcat(hex,"8");
 		else if (strncmp(bin, "1001", 4) == 0) strcat(hex,"9");
 		else if (strncmp(bin, "1010", 4) == 0) strcat(hex,"A");
@@ -80,7 +80,7 @@ const char * const quads[] = {"0000", "0001", "0010", "0011", "0100", "0101",
                               "0110", "0111", "1000", "1001", "1010", "1011",
                               "1100", "1101", "1110", "1111"};
 
-const char * hex_to_bin_quad(unsigned char c){
+const char * HexToBin(unsigned char c){
   if (c >= '0' && c <= '9') return quads[     c - '0'];
   if (c >= 'A' && c <= 'F') return quads[10 + c - 'A'];
   if (c >= 'a' && c <= 'f') return quads[10 + c - 'a'];
@@ -95,7 +95,7 @@ void ArquivoToBin(char * bin, char * arquivo){
 	        sprintf(hex,"%02x", (unsigned int) arquivo[i] & 0xff);
 	        for (int j=0; j<2; j++)
 		{
-		        strncat(bin,hex_to_bin_quad(hex[j]),4);
+		        strncat(bin,HexToBin(hex[j]),4);
 	        }
 
 	}

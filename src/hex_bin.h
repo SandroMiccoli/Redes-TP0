@@ -19,7 +19,8 @@ char* ReadFile(char *name);
 //converte binário para hexadecimal
 void BinToHex(char* bin, char *hex);
 
-const char * hex_to_bin_quad(unsigned char c);
+//converte hexadecimal para binário
+const char * HexToBin(unsigned char c);
 
 //converte os dados lidos do arquivo para binario
 void ArquivoToBin(char * bin, char * arquivo);
