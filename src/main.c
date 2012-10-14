@@ -14,18 +14,19 @@ main.c
 
 int main(int argc, char *argv[])
 {
-	char *polinomio;
-	char *entrada;
-	int tamPol;
+	char *polinomio; //armazena o polinomio gerador
+	char *entrada; //ponteiro para o arquivo de entrada
+	int tamPol; //tamanho do polinomio gerador
+	char *bin; //armazena os bits lidos do arquivo de entrada
 
-    	char *bin;
-
+	//verificação do numero de parâmetros do programa
 	if(argc != 3)
 	{
         	printf("\nQuantidade de parametros invalida!\n");
 	        return 1;
 	}
 
+	//verificação do polinômio gerador
 	if(atoi(argv[2]) == 0)//polinomio de 8 bits
 	{
 		tamPol = 8;		
@@ -36,7 +37,7 @@ int main(int argc, char *argv[])
 		tamPol = 16;		
 		polinomio = "11000000000000101";
 	}
-	else
+	else //polinômio não pré-definido
 	{
 		printf("\nPolinomio desconhecido. O programa sera encerrado!\n");
 		return 1;
@@ -48,27 +49,22 @@ int main(int argc, char *argv[])
 	//Abertura do arquivo
 	entrada = ReadFile(arquivoEntrada);
 
+	//aloca espacao para o vetor de bits do arquivo
 	bin=(char *)malloc((fileLen*8)+tamPol+1);
-	bin[fileLen*8+tamPol]='\0';
-	
-	printf("\nfileLen: %d\n", fileLen);
-	printf("\ncaracteres (fileLen/8): %d\n", fileLen/8);
-	printf("\ntamPol: %d\n", tamPol);
-	printf("\nalocado pro bin: %d\n", (fileLen)*8+tamPol);
-
 	*bin = NULL;
+	bin[fileLen*8+tamPol]='\0';
 
-	arquivo_to_bin(bin,entrada);
+	//chama a função que converte a entrada para binário
+	ArquivoToBin(bin,entrada);
 
-	//printf("Binario: %s\n",bin);
-	printf("\nPolinomio: %s\n", polinomio);
-
+	//chama a função que calcula o CRC
 	CalculaCRC(bin, polinomio);
 	
+	//libera a memória
 	free(entrada);
     free(bin);
+    
 	printf("\nPROGRAMA ENCERRADO COM SUCESSO!\n");
-
 
 	return 0;
 }

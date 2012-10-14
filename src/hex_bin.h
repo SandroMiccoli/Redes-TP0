@@ -11,17 +11,18 @@ hex_bin.h
 
 #define FirstDigit 48
 
-long fileLen;
+long fileLen; //armazena o tamanho do arquivo
 
+//realiza a leitura dos dados do arquivo
 char* ReadFile(char *name);
 
-void BinParaHex(char* bin, char *hex);
-
-void BinToHex(char* BinData, char* HexData);
+//converte binário para hexadecimal
+void BinToHex(char* bin, char *hex);
 
 const char * hex_to_bin_quad(unsigned char c);
 
-void arquivo_to_bin(char * bin, char * arquivo);
+//converte os dados lidos do arquivo para binario
+void ArquivoToBin(char * bin, char * arquivo);
 
 
 

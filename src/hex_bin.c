@@ -12,13 +12,13 @@ hex_bin.c
 #include "crc.h"
 #include "hex_bin.h"
 
-
+//realiza a leitura do arquivo e retorna sem conteudo em um buffer
 char* ReadFile(char *name)
 {	
 	FILE *file;
 	char *buffer;
 
-	//Open file
+	//abre o arquivo
 	file = fopen(name, "rb");
 	if (!file)
 	{
@@ -26,12 +26,12 @@ char* ReadFile(char *name)
 		exit(1);
 	}
 
-	//Get file length
+	//determina o tamanho do arquivo
 	fseek(file, 0, SEEK_END);
 	fileLen=ftell(file);
 	fseek(file, 0, SEEK_SET);
 
-	//Allocate memory
+	//aloca memória para os dados
 	buffer=(char *)malloc(fileLen+1);
 	if (!buffer)
 	{
@@ -40,7 +40,7 @@ char* ReadFile(char *name)
 		exit(1);
 	}
 
-	//Read file contents into buffer
+	//faz a leitura dos dados do arquivo
 	fread(buffer, fileLen, 1, file);
 	fclose(file);
 
@@ -48,8 +48,10 @@ char* ReadFile(char *name)
 
 }
 
-void BinParaHex(char* bin, char *hex)
+//converte os dados em binário para hexadecimal
+void BinToHex(char* bin, char *hex)
 {
+	//compara os bits 4 a 4 e faz a conversão para hexadecimal
 	strcat(hex, "0x");
 	while (*bin != '\0')
 	{
@@ -74,20 +76,6 @@ void BinParaHex(char* bin, char *hex)
 	}
 }
 
-void BinToHex(char* BinData, char* HexData)
-{
-   int Number = 0, i;
-   int BinLength = strlen(BinData);
-
-   for(i=0; i<BinLength; i++)
-   {
-      Number += ((BinData[BinLength - i - 1] - FirstDigit) * pow(2, i));
-   }
-
-   snprintf(HexData, BinLength,"%d", Number);
-}
-
-
 const char * const quads[] = {"0000", "0001", "0010", "0011", "0100", "0101",
                               "0110", "0111", "1000", "1001", "1010", "1011",
                               "1100", "1101", "1110", "1111"};
@@ -99,7 +87,8 @@ const char * hex_to_bin_quad(unsigned char c){
   return -1;
 }
 
-void arquivo_to_bin(char * bin, char * arquivo){
+//converte os caracteres lidos do arquivo para binário
+void ArquivoToBin(char * bin, char * arquivo){
    	char hex[2];
 	for (int i=0; i<fileLen; i++)
 	{

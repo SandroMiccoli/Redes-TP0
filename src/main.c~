@@ -48,18 +48,17 @@ int main(int argc, char *argv[])
 	//Abertura do arquivo
 	entrada = ReadFile(arquivoEntrada);
 
-	bin=(char *)malloc((fileLen+tamPol-1)*sizeof(int) + 1);
+	bin=(char *)malloc((fileLen*8)+tamPol+1);
+	bin[fileLen*8+tamPol]='\0';
 
 	*bin = NULL;
 
 	arquivo_to_bin(bin,entrada);
 
-	printf("Binario: %s\n",bin);
-	printf("\nPolinomio: %s\n", polinomio);
-
 	CalculaCRC(bin, polinomio);
-
-    	free(bin);
+	
+	free(entrada);
+    free(bin);
 	printf("\nPROGRAMA ENCERRADO COM SUCESSO!\n");
 
 

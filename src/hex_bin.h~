@@ -15,11 +15,13 @@ long fileLen;
 
 char* ReadFile(char *name);
 
-void BinToHex(char* BinData, char* HexData);
+void BinToHex(char* bin, char *hex);
+
+//void BinToHex(char* BinData, char* HexData);
 
 const char * hex_to_bin_quad(unsigned char c);
 
-void arquivo_to_bin(char * bin, char * arquivo);
+void ArquivoToBin(char * bin, char * arquivo);
 
 
 
