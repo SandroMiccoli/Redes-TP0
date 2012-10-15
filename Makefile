@@ -30,8 +30,7 @@ $(MAIN): $(OBJS)
 	@$(CC) $(CFLAGS) $< -c
 
 clean:
-	$(RM) $(MAIN) *.o *~ testes/*~
-	$(RM) entrada/ent* saida/sai* tempo/*
+	$(RM) $(MAIN) *.o *~
 	clear
 
 val: $(MAIN)

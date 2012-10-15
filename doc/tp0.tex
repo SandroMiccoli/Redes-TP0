@@ -22,7 +22,6 @@
 \usepackage{multirow}
 \usepackage[brazil]{babel}
 \usepackage[latin1]{inputenc}
-\usepackage{pythonhighlighting}
 
 \usepackage{alltt}
 \renewcommand{\ttdefault}{txtt}
@@ -79,7 +78,9 @@ A seguir descreveremos os algoritmos e as principais funções e procedimentos imp
  \item \begin{large}\textit{void CalculaCRC(char* bin, char* polinomio)}\end{large}\\
  \subitem \textbf{Descrição:} Calcula o CRC a partir de uma sequência de binários e do polinômio gerador.
  \subitem \textbf{Parâmetros:} Duas sequências de binários.
- \subitem \textbf{Complexidade:} $O(n)$, pois ???????????????????????.
+ \subitem \textbf{Complexidade:} $O(m*n)$, sendo m o tamanho do arquivo e n o tamanho do polinômio, pois possui dois laços aninhados, o externo que percorre toda a cadeia de bits do arquivo,
+ e o interno que faz a operação bit a bit dos restos das divisões sucessivas com o polinômio.
+.
 \end{itemize}
 
 \vspace{0.2 true cm}
@@ -95,7 +96,7 @@ A seguir descreveremos os algoritmos e as principais funções e procedimentos imp
 
 \begin{itemize}
  \item \begin{large}\textit{void BinToHex(char* bin, char *hex)}\end{large}\\
- \subitem \textbf{Descrição:} Converte binário para hexadecimal
+ \subitem \textbf{Descrição:} Converte binário para hexadecimal.
  \subitem \textbf{Parâmetros:} Sequência de bits e outro vetor para armazenar o resultado em hexadecimal.
  \subitem \textbf{Complexidade:} $O(n)$, sendo $n$ o tamanho da sequência de binários.
 \end{itemize}
@@ -104,7 +105,7 @@ A seguir descreveremos os algoritmos e as principais funções e procedimentos imp
 
 \begin{itemize}
  \item \begin{large}\textit{char * HexToBin(unsigned char c)}\end{large}\\
- \subitem \textbf{Descrição:} Converte hexadecimal para binário
+ \subitem \textbf{Descrição:} Converte hexadecimal para binário.
  \subitem \textbf{Parâmetros:} Caractere em hexadecimal.
  \subitem \textbf{Complexidade:} $O(1)$, pois é realizada apenas atribuições.
 \end{itemize}
@@ -113,7 +114,7 @@ A seguir descreveremos os algoritmos e as principais funções e procedimentos imp
 
 \begin{itemize}
  \item \begin{large}\textit{void ArquivoToBin(char * bin, char * arquivo))}\end{large}\\
- \subitem \textbf{Descrição:} Converte o conteúdo do arquivo para uma vetor de binários.
+ \subitem \textbf{Descrição:} Converte o conteúdo do arquivo para um vetor de binários.
  \subitem \textbf{Parâmetros:} Vetor de binário e vetor que contém o arquivo.
  \subitem \textbf{Complexidade:} $O(n)$, sendo $n$ o tamanho do arquivo.
 \end{itemize}
@@ -123,6 +124,12 @@ A seguir descreveremos os algoritmos e as principais funções e procedimentos imp
 \section{SOLUÇÃO PROPOSTA}
 \label{solucao_proposta}
 
+Para solucionar o problema do CRC, primeiro convertemos o arquivo de entrada em um array de binários, para podermos trabalhar com ele como vimos em sala de aula.
+
+\subsection{DECISÕES DE IMPLEMENTAÇÃO}
+\label{decisoes}
+
+Para fins de cálculo do CRC, os caracteres de quebra de linha e fim de arquivo foram considerados como parte integrante do arquivo, por entendermos que os mesmos serão transmitidos conjuntamente ao conteúdo.
 
 \section{IMPLEMENTAÇÃO}
 \label{implementacao}
@@ -132,7 +139,7 @@ A seguir descreveremos os algoritmos e as principais funções e procedimentos imp
 \subsubsection{Arquivos .c}
 
 \begin{itemize}
-\item \textbf{main.c} Arquivo principal que aloca memória para os binários do arquivo e calcula o CRC.
+\item \textbf{main.c} Arquivo principal que aloca memória para os binários e faz as chamadas das funções de leitura do arquivo e cálculo do CRC.
 \item \textbf{crc.c} Contém implementação da operação XOR e do CRC.
 \item \textbf{hex\_bin.c} Contém funções de manipulação de sequências binárias, hexadecimais e conversão do arquivo para binário.
 \end{itemize}
@@ -146,11 +153,15 @@ A seguir descreveremos os algoritmos e as principais funções e procedimentos imp
 
 \subsection{Compilação}
 
-O programa deve ser compilado através do compilador GCC através de um makefile, através do seguinte comando:
-
-\begin{footnotesize}
-\begin{verbatim} make \end{verbatim}
-\end{footnotesize}
+O programa deve ser compilado através do compilador GCC através de um makefile. Os modulos possiveis são:\\
+\begin{itemize}
+ \item ./make \\
+Com este comando, o programa será compilado.
+ \item ./make run\\
+Com este comando, o programa irá rodar da seguinte maneira: ./crc arquivo.txt 0.
+ \item ./make clean\\
+Com este comando o executavel e outros arquivos desnecessários serão apagados.
+\end{itemize}
 
 \subsection{Execução}
 
@@ -170,14 +181,36 @@ O comando para a execução do programa é da forma:
 \section{AVALIAÇÃO EXPERIMENTAL}
 \label{avaliacao_experimental}
 
-
-\subsection{Resultado}
+Fizemos testes com arquivos no formato texto e binário. Um teste com arquivos pequenos e outro com arquivos razoávelmente grandes (alguns $mb$).\\
+\\
+\textbf{Teste realizado:} arquivo .txt com os caracteres 'tp', sem aspas, gerando 2 bytes + o byte de fim de arquivo.\\
+\textbf{Binário de entrada:} 01110100011100000000101000000000\\
+\textbf{Polinomio 0:} 100000111\\
+\textbf{Resultado do CRC:} 01011000 = 0x58 em hex\\
+\\
+\textbf{Teste realizado:} arquivo .txt com milhares de caracteres, gerando 907349 bytes + o byte de fim de arquivo.\\
+\textbf{Binário de entrada:} não o colocaremos aqui por causa do seu tamanho\\
+\textbf{Polinomio 0:} 0101010110110111\\
+\textbf{Resultado do CRC:} 0111011000110110 = 0x7636 em hex\\
+\\
+\textbf{Teste realizado:} arquivo binário executável, com 74062 bytes.\\
+\textbf{Binário de entrada:} não o colocaremos aqui por causa do seu tamanho\\
+\textbf{Polinomio 1:} 0101010110110111\\
+\textbf{Resultado do CRC:} 01011000 = 0x55B7 em hex\\
+\\
+\textbf{Teste realizado:} arquivo binário pdf, com 103763 bytes.\\
+\textbf{Binário de entrada:} não o colocaremos aqui por causa do seu tamanho\\
+\textbf{Polinomio 1:} 0101010110110111\\
+\textbf{Resultado do CRC:} 01101000 = 0x68 em hex\\
 
 
 \section{CONCLUSÃO}
 \label{conclusao}
 
+Apesar de encontrarmos diversas implementações do CRC na internet, optamos por construir uma que se adequasse ao conteúdo que vimos em sala de aula e o que está detalhado no livro "Redes de Computadores" \cite{tanenbaum}.
 
+O algoritmo do CRC se mostrou eficiente para detecção de erros de trasmissão de dados, pois permite que sejam detectados 1 ou mais erros, inclusive em rajada, o que não é possível com outros algoritmos.
+Além disso, ele se mostrou simples, o que reduz a complexidade de detecção de erros.
 
 \bibliographystyle{sbc}
 \bibliography{tp0}

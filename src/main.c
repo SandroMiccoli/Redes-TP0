@@ -29,12 +29,12 @@ int main(int argc, char *argv[])
 	//verificação do polinômio gerador
 	if(atoi(argv[2]) == 0)//polinomio de 8 bits
 	{
-		tamPol = 8;		
-		polinomio = "100000111";	
+		tamPol = 8;
+		polinomio = "100000111";
 	}
 	else if(atoi(argv[2]) == 1)//polinomio de 16 bits
 	{
-		tamPol = 16;		
+		tamPol = 16;
 		polinomio = "11000000000000101";
 	}
 	else //polinômio não pré-definido
@@ -57,14 +57,14 @@ int main(int argc, char *argv[])
 	//chama a função que converte a entrada para binário
 	ArquivoToBin(bin,entrada);
 
+	//printf("Arquivo em binário: %s",bin);
+
 	//chama a função que calcula o CRC
 	CalculaCRC(bin, polinomio);
-	
+
 	//libera a memória
 	free(entrada);
     free(bin);
-    
-	printf("\nPROGRAMA ENCERRADO COM SUCESSO!\n");
 
 	return 0;
 }
